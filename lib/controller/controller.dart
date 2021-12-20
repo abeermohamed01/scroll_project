@@ -1,24 +1,25 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:scroll_project/providers/scroll_provider.dart';
 
-class MyController{
+class MyController {
   final controller = ScrollController();
-  double index = 40;
+  final ScrollProvider scrollProvider;
 
-  void scrollPlus(){
-    print(index);
-    index = index + 330;
-    _animateToIndex();
-    print(index);
+  MyController(this.scrollProvider);
+
+  void scrollPlus() {
+    scrollProvider.index += 330;
+    _animateToIndex(scrollProvider.index);
+    scrollProvider.toggle();
   }
 
-  void scrollMinus(){
-    print(index);
-    index = index - 350;
-    _animateToIndex();
-    print(index);
+  void scrollMinus() {
+    scrollProvider.index -= 350;
+    _animateToIndex(scrollProvider.index);
+    scrollProvider.toggle();
   }
 
-  _animateToIndex() => controller.animateTo(index,
+  _animateToIndex(double index) => controller.animateTo(index,
       duration: Duration(seconds: 1), curve: Curves.fastOutSlowIn);
 }

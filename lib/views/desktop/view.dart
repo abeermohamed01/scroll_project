@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:scroll_project/controller/controller.dart';
 import 'package:scroll_project/models/model.dart';
+import 'package:scroll_project/providers/scroll_provider.dart';
 
 class DeskTopView extends StatelessWidget {
-
   final double _width = 300;
- // double index = 40;
+
   @override
   Widget build(BuildContext context) {
-    final controller = MyController();
+    final scrollProvider = Provider.of<ScrollProvider>(context);
+    final controller = MyController(scrollProvider);
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -26,9 +28,7 @@ class DeskTopView extends StatelessWidget {
                   icon: Icon(
                     Icons.arrow_back_ios,
                     size: 30,
-                    color:
-                    //controller.index <= 40 ? Colors.black :
-                    Colors.white70,
+                    color:scrollProvider.index<=40?Colors.black: Colors.white70,
                   )),
               Container(
                 margin: EdgeInsets.all(5),
@@ -50,14 +50,26 @@ class DeskTopView extends StatelessWidget {
                                 borderRadius: BorderRadius.only(
                                     topLeft: Radius.circular(5),
                                     topRight: Radius.circular(5))),
-                            child: Center(
-                                child: Text(
-                                  CardViewModel(cardList[i]).title,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  CardViewModel(cardList[i]).text,
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w200),
+                                ),
+                                SizedBox(height: 80,),
+                                Text(
+                              CardViewModel(cardList[i]).title,
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 20,
                                   fontWeight: FontWeight.w200),
-                            )),
+                            ),
+                              ],
+                            ),
                           ),
                         )),
               ),
@@ -68,9 +80,7 @@ class DeskTopView extends StatelessWidget {
                   icon: Icon(
                     Icons.arrow_forward_ios,
                     size: 30,
-                    color:
-                    //controller.index >= 2080 ? Colors.black :
-                    Colors.white70,
+                    color:scrollProvider.index>=1360?Colors.black: Colors.white70,
                   )),
             ],
           ),

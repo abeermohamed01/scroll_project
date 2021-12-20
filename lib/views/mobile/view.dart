@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:scroll_project/controller/controller.dart';
+import 'package:scroll_project/models/model.dart';
+import 'package:scroll_project/providers/scroll_provider.dart';
 
 class MobileView extends StatefulWidget {
 
@@ -7,11 +11,11 @@ class MobileView extends StatefulWidget {
 }
 
 class _MobileViewState extends State<MobileView> {
-  final _controller = ScrollController();
   final double _width = 300;
-  double index = 40;
   @override
   Widget build(BuildContext context) {
+    final scrollProvider = Provider.of<ScrollProvider>(context);
+    final controller = MyController(scrollProvider);
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -24,25 +28,20 @@ class _MobileViewState extends State<MobileView> {
             children: [
               IconButton(
                   onPressed: () {
-                    setState(() {
-                      print(index);
-                      index = index - 340;
-                      _animateToIndex();
-                      print(index);
-                    });
+                    controller.scrollMinus();
                   },
                   icon: Icon(
                     Icons.arrow_back_ios,
                     size: 30,
-                    color: index <= 40 ? Colors.black : Colors.white70,
+                    color:scrollProvider.index<=40?Colors.black: Colors.white70,
                   )),
               Container(
                 margin: EdgeInsets.all(5),
                 width: MediaQuery.of(context).size.width - 160,
                 height: 200,
                 child: ListView.builder(
-                    itemCount: 10,
-                    controller: _controller,
+                    itemCount: cardList.length,
+                    controller: controller.controller,
                     scrollDirection: Axis.horizontal,
                     physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
@@ -56,32 +55,37 @@ class _MobileViewState extends State<MobileView> {
                             borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(5),
                                 topRight: Radius.circular(5))),
-                        child: Center(
-                            child: Text(
-                              'This is Text This is Text$i',
+                        child:  Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              CardViewModel(cardList[i]).text,
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 20,
                                   fontWeight: FontWeight.w200),
-                            )),
+                            ),
+                            SizedBox(height: 80,),
+                            Text(
+                              CardViewModel(cardList[i]).title,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w200),
+                            ),
+                          ],
+                        ),
                       ),
                     )),
               ),
               IconButton(
                   onPressed: () {
-                    setState(() {
-                      print(index);
-                      index = index + 300;
-                      _animateToIndex();
-                      index = index + 40;
-
-                      print(index);
-                    });
+                    controller.scrollPlus();
                   },
                   icon: Icon(
                     Icons.arrow_forward_ios,
                     size: 30,
-                    color: index >= 2080 ? Colors.black : Colors.white70,
+                    color:scrollProvider.index>=1360?Colors.black: Colors.white70,
                   )),
             ],
           ),
@@ -90,6 +94,4 @@ class _MobileViewState extends State<MobileView> {
     );
   }
 
-  _animateToIndex() => _controller.animateTo(index,
-      duration: Duration(seconds: 1), curve: Curves.fastOutSlowIn);
 }

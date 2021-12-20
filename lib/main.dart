@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:responsive_framework/responsive_wrapper.dart';
 import 'package:responsive_framework/utils/scroll_behavior.dart';
+import 'package:scroll_project/providers/scroll_provider.dart';
 import 'package:scroll_project/views/view.dart';
 
 
@@ -12,7 +14,10 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MultiProvider(providers: [
+      ChangeNotifierProvider(create: (_)=>ScrollProvider()),
+    ],
+    child: MaterialApp(
       builder:  (context, widget) => ResponsiveWrapper.builder(
           ClampingScrollWrapper.builder(context, widget),
           breakpoints: const[
@@ -24,6 +29,7 @@ class MyApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       home:HomeView(),
+    ),
     );
   }
 }
