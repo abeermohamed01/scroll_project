@@ -5,8 +5,11 @@ import 'package:responsive_framework/utils/scroll_behavior.dart';
 import 'package:scroll_project/providers/scroll_provider.dart';
 import 'package:scroll_project/views/view.dart';
 
+import 'locator.dart';
+
 
 void main() {
+  setupLocator();
   runApp(MyApp());
 }
 

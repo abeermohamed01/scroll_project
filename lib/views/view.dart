@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:scroll_project/views/tablet/view.dart';
 import 'package:scroll_project/widgets/responsive.dart';
 
-import 'desktop/view.dart';
-import 'mobile/view.dart';
+import 'home_views/desktop/view.dart';
+import 'home_views/mobile/view.dart';
+import 'home_views/tablet/view.dart';
+
+
 
 
 class HomeView extends StatelessWidget {

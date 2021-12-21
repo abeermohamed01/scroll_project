@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:scroll_project/controller/controller.dart';
-import 'package:scroll_project/models/model.dart';
+import 'package:scroll_project/models/model_page1.dart';
 import 'package:scroll_project/providers/scroll_provider.dart';
 
 class CustomCard extends StatelessWidget {
