@@ -1,42 +1,38 @@
-
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-import 'package:scroll_project/models/item_model.dart';
-import 'package:scroll_project/services/navigation_service.dart';
-import '../../locator.dart';
+class NavItem extends StatefulWidget {
+  final IconData icon;
+  final bool selected;
+  final Function onTap;
 
+  const NavItem({Key key, this.icon, this.selected, this.onTap})
+      : super(key: key);
+  @override
+  _NavItemState createState() => _NavItemState();
+}
 
-
-class NavBarItem extends StatelessWidget {
-  final String title;
-  final String navigationPath;
-   NavBarItem(this.title, this.navigationPath);
-
+class _NavItemState extends State<NavItem> {
   @override
   Widget build(BuildContext context) {
-    var model = NavBarItemModel(
-      title: title,
-      navigationPath: navigationPath,
-
-    );
-    return GestureDetector(
-      onTap: () {
-
-        locator<NavigationService>().navigateTo(navigationPath);
-      },
-      child: Provider.value(
-        value: model,
-        child: Container(
-          width: 120,
-          height: 40,
-          decoration: BoxDecoration(
-            color: Colors.grey,
-               borderRadius: BorderRadius.circular(5),
-          ),          
-          child: Center(child: Text(title , style: TextStyle(color: Colors.white),),),
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: () {
+          widget.onTap();
+        },
+        child: AnimatedContainer(
+          duration: Duration(milliseconds: 375),
+          width: double.infinity,
+          height: 60,
+          color: widget.selected ? Colors.black87 : Colors.white,
+          child: Icon(
+            widget.icon,
+            color: widget.selected ? Colors.white : Colors.black87,
+          ),
         ),
       ),
     );
   }
 }
+

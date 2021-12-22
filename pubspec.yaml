@@ -33,6 +33,7 @@ dependencies:
   provider: ^6.0.1
   get_it: ^4.0.2
   loading_indicator: ^3.0.2
+  fluro: ^2.0.3
 
 
 dev_dependencies:

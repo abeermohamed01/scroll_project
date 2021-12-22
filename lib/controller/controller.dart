@@ -9,14 +9,18 @@ class MyController {
   MyController(this.scrollProvider);
 
   void scrollPlus() {
-    scrollProvider.index += 330;
+    print(scrollProvider.index);
+    scrollProvider.index += 340;
     _animateToIndex(scrollProvider.index);
+    print(scrollProvider.index);
     scrollProvider.toggle();
   }
 
   void scrollMinus() {
+    print(scrollProvider.index);
     scrollProvider.index -= 350;
     _animateToIndex(scrollProvider.index);
+    print(scrollProvider.index);
     scrollProvider.toggle();
   }
 
